@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ListUsers from "./pages/ListUsers.jsx";
+import CreateUser from "./pages/CreateUser.jsx";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -16,32 +19,15 @@ function App() {
   }, [])
 
   return (
-    <>
-      <div className="container mt-5 border border-dark p-5">
-        <h1>Usuários</h1>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              users.map((user, index) => (
-                <tr>
-                  <th scope="row">{index}</th>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<ListUsers />} />
+        <Route path='/create' element={<CreateUser />} />
+        {/* <Route path='/edit' element={<Index />} /> */}
+      </Routes>
+    </BrowserRouter>
   )
 }
 
-export default App
+export default App;
+
