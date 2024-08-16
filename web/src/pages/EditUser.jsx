@@ -4,7 +4,8 @@ import { useParams } from 'react-router-dom';
 function EditUser() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const { id } = useParams();
+    let { id } = useParams();
+    id = parseInt(id);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -13,25 +14,34 @@ function EditUser() {
             const data = await response.json();
             setName(data.user.name);
             setEmail(data.user.email);
-            console.log(data.user);
         }
 
         fetchUser();
     }, []);
 
     const editUser = async (e) => {
-        e.preventDeafult()
-        const URL = `http://localhost:3000/${id}`;
+        e.preventDefault();
+    
+        const URL = `http://localhost:3000/users/${id}`;
         const dataToSend = { name, email };
+    
         const settings = {
-            "Content-Type": "application/json",
+            headers: {
+                "Content-Type": "application/json"
+            },
             method: "PUT",
             body: JSON.stringify(dataToSend)
+        };
+    
+        try {
+            const response = await fetch(URL, settings);
+            const data = await response.json();
+            window.location.href = "http://localhost:5173/";
+        } catch (error) {
+            console.error('Error:', error);
         }
-        const response = await fetch(URL, settings);
-        const data = await response.json();
-        window.location.href = "http://localhost:5173/";
-    }
+    };
+    
 
     const changeName = (e) => {
         setName(e.target.value);

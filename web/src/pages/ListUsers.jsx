@@ -16,26 +16,26 @@ function ListUsers() {
   }, []);
 
   async function delUSer(index) {
-    const URL = `http://localhost:5173/edit/${index}`;
+    const URL = `http://localhost:3000/users/${index}`;
 
-        const settings = {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
+    const settings = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
 
-        try {
-            const response = await fetch(URL, settings);
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            const data = await response.json();
-            console.log(data);
-            window.location.href = "http://localhost:5173/";
-        } catch (error) {
-            console.error('Error:', error);
-        }
+    try {
+      const response = await fetch(URL, settings);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data);
+      window.location.href = "http://localhost:5173/";
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
 
   return (
@@ -59,11 +59,11 @@ function ListUsers() {
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>
-            <button onClick={() => window.location.href = `http://localhost:5173/edit/${index}`} className="btn btn-warning me-2">
-                      <i class="bi bi-pencil-square"></i>
+                    <button onClick={() => window.location.href = `http://localhost:5173/edit/${index}`} className="btn btn-warning me-2">
+                      <i className="bi bi-pencil-square"></i>
                     </button>
                     <button onClick={() => delUSer(index)} className="btn btn-danger">
-                      <i class="bi bi-trash"></i>
+                      <i className="bi bi-trash"></i>
                     </button>
                   </td>
                 </tr>
