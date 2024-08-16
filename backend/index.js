@@ -5,10 +5,10 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", router);
-app.use(cors());
 app.use(express.json());
 
 app.listen(3000, () => {
