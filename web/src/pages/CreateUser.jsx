@@ -1,15 +1,28 @@
 import { useEffect, useState } from 'react'
 
 function CreateUser() {
-    const [username, setUsername] = useState("");
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
 
     async function addUser() {
         const URL = "http://localhost:3000/create/";
-        const response = await fetch(URL, {"Content-Type": "application/json", body: []});
+        const data = {name, email}
+        const settings = {
+            "Content-Type": "application/json",
+            body: JSON.stringify(data);
+        }
+        const response = await fetch(URL, settings);
         const data = await response.json();
         setUsers(data.users);
         console.log(data.users);
+    }
+
+    const changeName = (e) => {
+        setName(e.target.value);
+    }
+
+    const changeEmail = (e) => {
+        setEmail(e.target.value);
     }
 
     useEffect(() => {
@@ -23,11 +36,11 @@ function CreateUser() {
                 <form method='post' onSubmit={addUser}>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='nome' />
+                        <input onChange={changeName} type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='nome' />
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='nome@gmail.com' />
+                        <input onChange={changeEmail} type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='nome@gmail.com' />
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
