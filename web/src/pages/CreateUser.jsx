@@ -1,20 +1,34 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react';
 
 function CreateUser() {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+    const [name, setName] = useState("Palermo");
+    const [email, setEmail] = useState("palermo@gmail.com");
 
-    async function addUser() {
+    async function addUser(event) {
+        event.preventDefault();
+        
         const URL = "http://localhost:3000/create/";
-        const data = {name, email}
+        const dataToSend = { name, email };
+
         const settings = {
-            "Content-Type": "application/json",
-            body: JSON.stringify(data);
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataToSend)
+        };
+
+        try {
+            const response = await fetch(URL, settings);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log(data);
+            window.location.href = "http://localhost:5173/";
+        } catch (error) {
+            console.error('Error:', error);
         }
-        const response = await fetch(URL, settings);
-        const data = await response.json();
-        setUsers(data.users);
-        console.log(data.users);
     }
 
     const changeName = (e) => {
@@ -25,29 +39,36 @@ function CreateUser() {
         setEmail(e.target.value);
     }
 
-    useEffect(() => {
-        addUser();
-    }, []);
-
     return (
-        <>
-            <div className="container mt-5 border border-dark p-5">
-                <h1>Create User</h1>
-                <form method='post' onSubmit={addUser}>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Username</label>
-                        <input onChange={changeName} type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='nome' />
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Email address</label>
-                        <input onChange={changeEmail} type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='nome@gmail.com' />
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-        </>
-    )
+        <div className="container mt-5 border border-dark p-5">
+            <h1>Create User</h1>
+            <form onSubmit={addUser}>
+                <div className="mb-3">
+                    <label htmlFor="username" className="form-label">Username</label>
+                    <input 
+                        value={name} 
+                        onChange={changeName} 
+                        type="text" 
+                        className="form-control" 
+                        id="username" 
+                        placeholder='nome' 
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="email" className="form-label">Email address</label>
+                    <input 
+                        value={email} 
+                        onChange={changeEmail} 
+                        type="email" 
+                        className="form-control" 
+                        id="email" 
+                        placeholder='nome@gmail.com' 
+                    />
+                </div>
+                <button type="submit" className="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    );
 }
 
 export default CreateUser;
-

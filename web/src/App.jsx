@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ListUsers from "./pages/ListUsers.jsx";
 import CreateUser from "./pages/CreateUser.jsx";
+import EditUser from './pages/EditUser.jsx';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -23,7 +24,7 @@ function App() {
       <Routes>
         <Route path='/' element={<ListUsers />} />
         <Route path='/create' element={<CreateUser />} />
-        {/* <Route path='/edit' element={<Index />} /> */}
+        <Route path='/edit/:id' element={<EditUser />} />
       </Routes>
     </BrowserRouter>
   )
