@@ -1,0 +1,19 @@
+# Ignorar diretórios e arquivos do Node.js que não são necessários para a construção da imagem
+web/node_modules/
+backend/node_modules/
+
+npm-debug.log
+
+# Ignorar arquivos do Git e Docker
+.git
+.dockerignore
+
+# Ignorar arquivos de logs
+*.log
+
+# Ignorar arquivos de sistema
+.DS_Store
+
+# Ignorar arquivos de configuração local do Docker
+docker-compose.override.yml
+docker-compose.local.yml
