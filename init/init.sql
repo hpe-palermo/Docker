@@ -1,0 +1,8 @@
+CREATE DATABASE IF NOT EXISTS dbteste;
+
+USE dbteste;
+
+CREATE TABLE Usuario(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(20)
+);
