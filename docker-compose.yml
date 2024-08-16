@@ -6,6 +6,8 @@ services:
       context: ./web
     ports:
       - "3000:3000"
+    volumes:
+      - ./web:/app
     depends_on:
       - backend
 
@@ -13,7 +15,9 @@ services:
     build:
       context: ./backend
     ports:
-      - "5000:5000"
+      - "5173:5173"
+    volumes:
+      - ./backend:/app
     depends_on:
       - db
 
