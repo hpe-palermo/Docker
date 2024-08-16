@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 
 function CreateUser() {
-    const [users, setUsers] = useState([]);
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
 
     async function addUser() {
         const URL = "http://localhost:3000/create/";
